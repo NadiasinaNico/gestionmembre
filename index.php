@@ -4,7 +4,7 @@ session_start();
 $host = "localhost";
 $username = "root";
 $password = "";
-$database = "testing";
+$database = "membre";
 $message = "";
 try{
     $connect = new PDO("mysql:host=$host; dbname=$database", $username, $password);
@@ -56,7 +56,7 @@ if(isset($message))
 }
 ?>
 <div class="container" style="width: 500px;">
-<h3 align="">PHP Login script using PDO</h3>
+<h3 align="">Inscrivez vos sur membres</h3>
 <br />
 <form method="post">
 <label>Username</label>
@@ -65,7 +65,9 @@ if(isset($message))
 <label>Password</label>
 <input type="password" name="password" class="form-control" />
 <br />
-<input type="submit" name="login" class="btn btn-info" value="Login" />
+<input type="submit" name="login" class="btn btn-info" value="Inscrire" />
+
+<input type="submit" name="logout" class="btn btn-default btn-sm" value="Enregister" />
 </form>
 </div>
     

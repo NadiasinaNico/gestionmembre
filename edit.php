@@ -1,75 +1,123 @@
 <?php 
- require_once('dbcon.php');
- require_once('navbar.php');
- if(isset($_POST['btn_submit'])) {
-     $id = $_POST['txt_id'];
-     $name = $_POST['txt_student_name'];
-     $age = $_POST['txt_age'];
-     $email = $_POST['txt_email'];
-     if(!empty($name)) {
+require_once('dbcon.php');
+require_once('navbar.php');
+ if(isset($_POST['insertdata']))
+ {
+     $nom = $_POST['nom'];
+     $age = $_POST['age'];
+     $ecole = $_POST['ecole'];
+     $classe = $_POST['classe'];
+     if(!empty($nom)) {
          try {
-             $stmt = $con->prepare("UPDATE tb_students set student_name= :name, age = :age, email = :email WHERE
-             student_id = :id"); 
-             $stmt->execute(array(':name'=>$name, ':age'=>$age, 'email'=>$email, ':id'=>$id));
-             if($stmt){
-             header('Location: inscription.php');
-             }
-         }catch (PDOException $ex) {
+             $stmt = $con->prepare("INSERT INTO membres (nom, age, ecole, classe) VALUES (:nom, :age, :ecole, :classe)");
+             $stmt->execute(array(':nom'=>$nom, ':age'=>$age, ':ecole'=>$ecole, ':classe'=>$classe));
+         }catch(PDOException $ex){
              echo $ex->getMessage();
-            }
-         }else {
-             echo '<div class="alert alert-danger">le champ obligatoire</div>';
          }
-         
      }
-     $student_id = 0;
-         $name = '';
-         $age = 0;
-         $email = '';
-         if(isset($_GET['id'])) {
-             $id = $_GET['id'];
-             $stmt = $con->prepare('SELECT * FROM tb_students WHERE student_id = :id');
-             $stmt->execute(array(':id'=>$id));
-             $row = $stmt->fetch();
-             $student_id = $row['student_id'];
-            $name = $row['student_name'];
-            $age = $row['age'];
-            $email = $row['email'];
-         }
+    else{
+        echo "INPUT NAME";
+    }
+    
+ }
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Document</title>
+    <link rel="stylesheet" href="bootstrap/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap/fontawesome-free/css/all.css">
+    <title>Php crud with modal</title>
 </head>
-    <body>
-    <div class="container">
-    <h2> Add New Student</h2>
-    <div class="row">
-    <div class="col-8">
-    <form action="" method="POST">
-    <div class="form-group">
-    <label>Student Name</label>
-    <input type="text" name="txt_student_name" class="form-control" value="<?=$name;?>">
+<body>
+<form action="" method="POST">
+<!--Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title" id="exampleModalLabel">Ajouter aux membre</h5>
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+</div>
+<div class="modal-body">
+
+<div class="form-group">
+<label>Nom</label>
+<input type="text" class="form-control" name="nom">
+</div>
+<div class="form-group">
+<label>Age</label>
+<input type="text" class="form-control" name="age">
+</div>
+<div class="form-group">
+<label>Ecole</label>
+<input type="text" class="form-control" name="ecole">
+</div>
+<div class="form-group">
+<label>classe</label>
+<input type="text" class="form-control" name="classe">
+</div>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-trash"></i></button>
+<button type="submit" class="btn btn-primary" name="insertdata"><i class="fa fa-check"></i></button>
+</form>
+</div>
+</div>
+</div>
+</div>
+    <div class="container pt-4">
+    <div class="jumbotron">
+    <div class="card">
+    <h2>Php Crud with modal</h2>
     </div>
-    <div class="form-group">
-    <label>Age</label>
-    <input type="number" name="txt_age" class="form-control" value="<?=$age;?>">
-    </div>
-    <div class="form-group">
-    <label>Email</label>
-    <input type="email" name="txt_email" class="form-control" value="<?=$email;?>">
-    </div>
-    <div class="form-group">
+    <div class="card">
+    <div class="card-body">
+    
+    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus"></i></button>
+    <br>
+    <table class="table table-striped">
+    <tbody>
+    <tr>
+    <th>Nom</th>
+    <th>Age</th>
+    <th>Ecole</th>
+    <th>Classe</th>
+    <th>Action</th>
+    </tr>
    
-    <button type="submit" name="btn_submit" class="btn btn-success btn-sm"><i class="fa fa-check"></i></button>
+    <tr>
+    <?php 
+    $stmt = $con->prepare("SELECT * FROM membres ORDER BY id ASC");
+    $stmt->execute();
+    $results = $stmt->fetchAll();
+    foreach($results as $row) {
+        ?>
+        <tr>
+        <td><?=$row['nom'];?></td>
+        <td><?=$row['age'];?></td>
+        <td><?=$row['ecole'];?></td>
+        <td><?=$row['classe'];?></td>
+        <td>
+        <a class="btn btn-success btn-sm"><i class="fa fa-pen"></i></a>
+    <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+    
+    </td>
+        </tr>
+        <?php
+    }
+    ?>
+   
+    </table>
     </div>
     </div>
     </div>
     </div>
-    </form>
-    </body>
-    </html>
+
+    <script src="bootstrap/jquery/jquery.min.js"></script>
+    <script src="bootstrap/bootstrap/bootstrap.min.js"></script>
+</body>
+</html>
