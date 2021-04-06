@@ -72,7 +72,7 @@ require_once('navbar.php');
     <div class="container pt-4">
     <div class="jumbotron">
     <div class="card">
-    <h2>Php Crud with modal</h2>
+    <h2>Liste des membres AJID Mada</h2>
     </div>
     <div class="card">
     <div class="card-body">

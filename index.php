@@ -67,7 +67,7 @@ if(isset($message))
 <br />
 <input type="submit" name="login" class="btn btn-info" value="Inscrire" />
 
-<input type="submit" name="logout" class="btn btn-default btn-sm" value="Enregister" />
+<a href="register" class="btn btn-default">Inscrire</a>
 </form>
 </div>
     

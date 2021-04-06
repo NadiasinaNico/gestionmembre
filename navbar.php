@@ -10,7 +10,7 @@
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-primary mb-4">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">AJID Mada</a>
+    <a class="navbar-brand" href="login_success.php">AJID Mada</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -25,10 +25,15 @@
           <a class="nav-link " href="index.php" tabindex="-1" >Login</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="login_success.php" tabindex="-1" >Logout</a>
+          <a class="nav-link " href="register.php" tabindex="-1" >Logout</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="service.php" tabindex="-1" >Service</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="contact.php" tabindex="-1" >Contact</a>
         </li>
       </ul>
-     
     </div>
   </div>
 </nav>
